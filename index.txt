@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Dominio, Rango e Inecuaciones</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+      color: #2c3e50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #2980b9;
+      color: white;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    main {
+      margin: 40px;
+      width: 100%;
+      max-width: 600px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 100%;
+      border: 2px solid #2980b9;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #2980b9;
+      color: white;
+      font-weight: bold;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #1f6391;
+    }
+
+    .output {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0f4f8;
+      border-left: 6px solid #2980b9;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Calculadora de Dominio, Rango e Inecuaciones</h1>
+  </header>
+
+  <main>
+    <label for="expression">✏️ Escribe una función matemática (por ejemplo: x^2, sqrt(x), 1/(x-2)):</label>
+    <input type="text" id="expression" placeholder="Ej: x^2">
+    <button onclick="analizarFuncion()">🔍 Analizar función</button>
+
+    <div class="output" id="output"></div>
+  </main>
+
+  <script>
+    function analizarFuncion() {
+      const expr = document.getElementById("expression").value;
+      const output = document.getElementById("output");
+
+      let dominio = "Todos los reales";
+      let rango = "Desconocido";
+
+      if (expr.includes("sqrt")) {
+        dominio = "x ≥ 0 (no se puede hacer raíz de negativos)";
+      } else if (expr.includes("1/")) {
+        const partes = expr.split("1/")[1];
+        dominio = `Todos los reales excepto donde ${partes} = 0`;
+      }
+
+      if (expr === "x^2") {
+        rango = "y ≥ 0 (porque x² nunca es negativo)";
+      } else if (expr === "1/x") {
+        rango = "Todos los reales excepto y = 0";
+      }
+
+      output.innerHTML = `
+        <p><strong>📌 Dominio:</strong> ${dominio}</p>
+        <p><strong>📌 Rango:</strong> ${rango}</p>
+        <p><em>Esta es una versión simple. Próximamente podrás resolver ecuaciones e inecuaciones paso a paso.</em></p>
+      `;
+    }
+  </script>
+</body>
+</html>
+
