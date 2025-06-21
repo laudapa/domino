@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Dominio, Rango e Inecuaciones</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    label, p {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, button {
+      padding: 8px;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .output {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #ecf0f1;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de Dominio, Rango e Inecuaciones</h1>
+
+  <label for="expression">Escribe una función matemática (por ejemplo: x^2, sqrt(x), 1/(x-2)):</label>
+  <input type="text" id="expression" placeholder="x^2">
+  <button onclick="analizarFuncion()">Analizar función</button>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    function analizarFuncion() {
+      const expr = document.getElementById("expression").value;
+      const output = document.getElementById("output");
+
+      // Análisis muy básico: solo revisa algunas características conocidas
+      let dominio = "Todos los reales";
+      let rango = "Desconocido";
+
+      if (expr.includes("sqrt")) {
+        dominio = "x >= 0 (No se puede raíz cuadrada de número negativo)";
+      } else if (expr.includes("1/")) {
+        const partes = expr.split("1/")[1];
+        dominio = `Todos los reales excepto donde ${partes} = 0`;
+      }
+
+      if (expr === "x^2") {
+        rango = "y >= 0 (porque x^2 nunca es negativo)";
+      } else if (expr === "1/x") {
+        rango = "Todos los reales excepto y = 0";
+      }
+
+      output.innerHTML = `
+        <p><strong>Dominio:</strong> ${dominio}</p>
+        <p><strong>Rango:</strong> ${rango}</p>
+        <p><em>Nota:</em> Esta es una versión simple. Pronto agregaremos más funciones como resolver ecuaciones e inecuaciones.</p>
+      `;
+    }
+  </script>
+</body>
+</html>
